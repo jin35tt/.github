@@ -1,0 +1,39 @@
+# .github/workflows/mdc_validation.yml
+
+name: MDC Validation Check
+
+# 언제 이 워크플로우를 실행할 것인가?
+on:
+  pull_request:  # 모든 Pull Request에 대해 실행
+    paths:
+      - '**.md'   # .md 파일이 변경되었을 때만 실행 (효율성)
+
+jobs:
+  validate-mdc:
+    runs-on: ubuntu-latest # 실행 환경
+
+    steps:
+      # 1. 코드 저장소의 내용을 가져옵니다.
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Python 환경을 설정합니다.
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      # 3. 필요한 라이브러리(PyYAML)를 설치합니다.
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install PyYAML
+
+      # 4. 모든 변경된 .MDC 파일에 대해 검증기를 실행합니다.
+      # (이 부분은 모든 .md 파일을 찾는 더 정교한 스크립트로 개선될 수 있습니다)
+      - name: Run MDC Validator
+        run: |
+          echo "Validating MDC files..."
+          # 우선은 핵심 파일들에 대해 수동으로 실행해봅니다.
+          python mdc_validator.py M_UserAuthentication.MDC.md Z0-Core-Universal-MDC-Architecture.md
+          # 향후에는 변경된 모든 .md 파일을 찾아 반복 실행하도록 개선합니다.
