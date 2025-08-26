@@ -2,7 +2,6 @@
 이 부록은 위 `Z0-Core` 헌법을 사용하여 실제 기능(`UserAuthentication`)을 어떻게 설계하는지 보여주는 **검증 가능한(Verifiable) 참조 구현**이다. 이 예시는 `validationMode: "strict"`의 모든 요구사항을 충족하며, 보강된 모든 스키마 규칙을 통과한다.
 
 
-
 ```yaml
 # ── 1. Common ───────────────────────────────────────────────
 moduleContract:
